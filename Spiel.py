@@ -37,7 +37,7 @@ class Spiel(arcade.Window):
 
         self.hindernis_liste = arcade.SpriteList()
 
-        self.total_time = 20
+        self.total_time = 6
 
         i = 1
         while i <= 10:
@@ -72,9 +72,9 @@ class Spiel(arcade.Window):
     def on_update(self, delta_time):
         if self.stufe == 1:
             self.total_time = self.total_time - delta_time
-        
-       
-    # Spiel beenden mit der Taste 'Q'
+
+
+    # Spiel beenden mit der Taste 'Q' und Restarten mit der Taste 'R'
     def on_key_press(self, key, modifiers):
         if key == arcade.key.Q:
             arcade.close_window()
@@ -93,7 +93,8 @@ class Spiel(arcade.Window):
         if self.stufe == 0:
             arcade.draw_lrtb_rectangle_filled(0, 800, 600, 0, arcade.color.YELLOW)
             arcade.draw_text("PLAY!", 400, 300, arcade.color.WHITE, 60, font_name="Kenney Blocks", anchor_x="center", anchor_y="center")
-            arcade.draw_text("Play", 800 / 2, 600 / 2, arcade.color.WHITE, font_size = 50, anchor_x = "center")
+            arcade.draw_rectangle_outline(400, 290, 300, 90, arcade.color.WHITE, 5)
+                              
         elif self.stufe == 1:
             self.gegenstand_liste.draw()
             self.hindernis_liste.draw()
@@ -101,36 +102,26 @@ class Spiel(arcade.Window):
             arcade.draw_text(self.punkte, 15, 15, arcade.color.WHITE, 30, font_name="Kenney Blocks")
             arcade.draw_text(round(self.total_time, 1), 785, 15, arcade.color.WHITE, 30, font_name="Kenny Blocks", anchor_x="right")
 
-
-
-            # Timer 
-            minutes = int(self.total_time) // 60
-            seconds = int(self.total_time) % 60
-            output = f"Time: {minutes:02d}:{seconds:02d}s"
-
-            arcade.draw_text(output, 10, 10, arcade.color.WHITE, 14)
             
 
-            self.gegenstand_liste.draw()
-            self.hindernis_liste.draw()
 
-            arcade.draw_text(self.punkte, 20, 20, arcade.color.WHITE, 30, font_name="Kenney Blocks")
-
-        
 
             # Spiel beenden 
             if self.punkte == 3:
                 arcade.draw_lrtb_rectangle_filled(0, 800, 600, 0, arcade.color.GREEN)
                 arcade.draw_text("GEWONNEN!", 400, 300, arcade.color.WHITE, 60, font_name="Kenney Blocks", anchor_x="center", anchor_y="center")
-                arcade.draw_text("Drück die Taste 'R' um das Spiel zu wiederholen", 400, 100, arcade.color.WHITE, 15, font_name="Kenney Future", anchor_x="center", anchor_y="center")
+                arcade.draw_text("Drücke die Taste 'R' um das Spiel zu wiederholen", 400, 100, arcade.color.WHITE, 15, font_name="Kenney Future", anchor_x="center", anchor_y="center")
+                arcade.draw_text("Drücke die Taste 'Q' um das Spiel zu beenden", 400, 50, arcade.color.WHITE, 15, font_name="Kenney Future", anchor_x="center", anchor_y="center")
 
-            if self.total_time <= 0.0:
-                arcade.draw_lrtb_rectangle_filled(0, 800, 600, 0, arcade.color.BLACK_BEAN)
-                arcade.draw_text("Game over!", 400, 300, arcade.color.WHITE, 60, font_name="Kenney Blocks", anchor_x="center", anchor_y="center")
+            elif self.total_time <= 0.0:
+                arcade.draw_lrtb_rectangle_filled(0, 800, 600, 0, arcade.color.AMERICAN_ROSE)
+                arcade.draw_text("Verloren!", 400, 300, arcade.color.WHITE, 60, font_name="Kenney Blocks", anchor_x="center", anchor_y="center")
+                arcade.draw_text("Drücke die Taste 'R' um das Spiel zu wiederholen", 400, 100, arcade.color.WHITE, 15, font_name="Kenney Future", anchor_x="center", anchor_y="center")
+                arcade.draw_text("Drücke die Taste 'Q' um das Spiel zu beenden", 400, 50, arcade.color.WHITE, 15, font_name="Kenney Future", anchor_x="center", anchor_y="center")
+
 
         
 
 intro = Spiel(800, 600, "Intro")
 arcade.run()
 
-...
