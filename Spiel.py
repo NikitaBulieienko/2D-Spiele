@@ -133,3 +133,4 @@ class Spiel(arcade.Window):
 intro = Spiel(800, 600, "Intro")
 arcade.run()
 
+...
