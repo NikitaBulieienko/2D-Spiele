@@ -37,7 +37,7 @@ class Spiel(arcade.Window):
 
         self.hindernis_liste = arcade.SpriteList()
 
-        self.game_time = 5
+        self.game_time = 10
         self.total_time = self.game_time
 
         i = 1
@@ -88,7 +88,7 @@ class Spiel(arcade.Window):
 
 
 
-            
+        
 
 
     def on_draw(self):
